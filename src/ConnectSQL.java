@@ -26,17 +26,18 @@ public class ConnectSQL {
                 {
                     System.out.println("|====Nhập thông tin tướng====|");
                     sc.nextLine();
+                    InfoCham i = new InfoCham();
                     System.out.print("Tên tướng: ");
-                    name = sc.nextLine();
+                    i.setName(sc.nextLine());
                     System.out.print("Biệt danh: ");
-                    nickname = sc.nextLine();
+                    i.setNickname(sc.nextLine());
                     System.out.print("Loại tướng: ");
-                    general_type = sc.nextLine();
+                    i.setGeneral_type(sc.nextLine());
                     System.out.print("Độ khó tướng: ");
-                    level = sc.nextInt();
+                    i.setLevel(sc.nextInt());
 
                     String insert = "INSERT INTO \"Champion\" (name, nickname, general_type, level)\n";
-                    String values = "VALUES('" + name + "','" + nickname + "','" + general_type + "'," + level + ")";
+                    String values = "VALUES('" + i.getName() + "','" + i.getNickname() + "','" + i.getGeneral_type() + "'," + i.getLevel() + ")";
                     String sql = insert + values;
                     Statement statement = connection.createStatement();
                     int row = statement.executeUpdate(sql);
@@ -44,19 +45,18 @@ public class ConnectSQL {
 
                     System.out.println(sql);
                 }
-                if (choice == 2)
-                {
+                if (choice == 2) {
                     String sql = "SELECT * FROM \"Champion\"";
+                    InfoCham i = new InfoCham();
                     Statement statement = connection.createStatement();
                     ResultSet result = statement.executeQuery(sql);
                     System.out.println("NAME - NICKNAME - GENERAL_TYPE - LEVEL");
-                    while (result.next())
-                    {
-                        name = result.getString("name");
-                        nickname = result.getString("nickname");
-                        general_type = result.getString("general_type");
-                        level = result.getInt("level");
-                        System.out.printf("%s - %s - %s - %d \n", name, nickname, general_type, level);
+                    while (result.next()) {
+                        i.setName(result.getString("name"));
+                        i.setNickname(result.getString("nickname"));
+                        i.setGeneral_type(result.getString("general_type"));
+                        i.setLevel(result.getInt("level"));
+                        System.out.printf("%s - %s - %s - %d \n", i.getName(), i.getNickname(), i.getGeneral_type(), i.getLevel());
                     }
                 }
                 if(choice == 0)
